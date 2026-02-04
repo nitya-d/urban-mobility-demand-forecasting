@@ -9,7 +9,6 @@ City-scale demand forecasting and operational analytics using 31M London bike jo
   - [Table of Contents](#table-of-contents)
   - [Key Findings](#key-findings)
   - [Overview](#overview)
-  - [Overview](#overview-1)
   - [Technology Stack](#technology-stack)
   - [Project Structure](#project-structure)
   - [Setup](#setup)
@@ -33,9 +32,6 @@ City-scale demand forecasting and operational analytics using 31M London bike jo
 | Post-COVID Growth | +5.5% | Expansion timing validated |
 
 ## Overview
-
-## Overview
-
 This project demonstrates how historical mobility data can support operational and strategic decision-making for a bike-sharing provider.
 Using Transport for London Santander Cycles data (2019–2021, ~31M journeys),
 the analysis combines behavioural analysis, geospatial insights, and machine
@@ -60,7 +56,7 @@ learning to forecast demand and guide fleet management decisions.
 ├── interactive plots/      # Plotly & Folium outputs
 ├── requirements.txt        # Python dependencies
 ├── client recommendations  # A simple stakeholder summary powerpoint
-├── data                    # Publicly available from [TfL](https://cycling.data.tfl.gov.uk/#!usage-stats%2F)
+├── data                    # Publicly available from TfL usage stats
 └── README.md
 ```
 
