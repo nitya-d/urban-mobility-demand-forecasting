@@ -6,3 +6,6 @@ data/
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
+
+# VS Code workspace
+*.code-workspace
