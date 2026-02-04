@@ -1,3 +1,6 @@
 # Tell GitHub Linguist to ignore HTML plots in language stats
 interactive\ plots/* linguist-vendored
 *.html linguist-vendored
+
+# Count notebooks as Python
+*.ipynb linguist-language=Python
