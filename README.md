@@ -1,14 +1,15 @@
-# Bike Demand Forecasting 🚴
+# Urban Mobility Demand Forecasting
 
-Machine learning model for predicting London bike-sharing demand using time series analysis and seasonal decomposition.
+City-scale demand forecasting and operational analytics using 31M London bike journeys.
 
-**TLDR**: Analysed 31M TfL bike journeys → Built XGBoost demand forecaster (R² = 0.966) → Delivered actionable redistribution and pricing recommendations.
+**TLDR**: Analysed 31M TfL journeys → Forecasted hourly demand (R² 0.966) → Identified redistribution windows and pricing strategy for a bike-sharing operator.
 
 ## Table of Contents
-- [Bike Demand Forecasting 🚴](#bike-demand-forecasting-)
+- [Urban Mobility Demand Forecasting](#urban-mobility-demand-forecasting)
   - [Table of Contents](#table-of-contents)
+  - [Key Findings](#key-findings)
   - [Overview](#overview)
-    - [Key Findings](#key-findings)
+  - [Overview](#overview-1)
   - [Technology Stack](#technology-stack)
   - [Project Structure](#project-structure)
   - [Setup](#setup)
@@ -18,14 +19,9 @@ Machine learning model for predicting London bike-sharing demand using time seri
     - [1. Optimise Bike Redistribution](#1-optimise-bike-redistribution)
     - [2. Customer-Segmented Pricing](#2-customer-segmented-pricing)
   - [Future Enhancements](#future-enhancements)
+  - [Reproducibility](#reproducibility)
 
-## Overview
-
-This project analyses Transport for London (TfL) Santander Cycles usage data from 2019-2021 (~31M journey records) to demonstrate how data science can be applied to real-world operational and strategic decisions in urban mobility.
-
-The work combines exploratory data analysis, geospatial analytics, and machine learning to support demand forecasting, fleet optimisation, and pricing strategy for a hypothetical bike-sharing operator.
-
-### Key Findings
+## Key Findings
 
 | Metric | Value | Business Implication |
 |--------|-------|---------------------|
@@ -35,6 +31,15 @@ The work combines exploratory data analysis, geospatial analytics, and machine l
 | Short Trips (<30min) | 87% | Pricing tier opportunity |
 | Day-to-Day Variation | 11% | Consistent demand |
 | Post-COVID Growth | +5.5% | Expansion timing validated |
+
+## Overview
+
+## Overview
+
+This project demonstrates how historical mobility data can support operational and strategic decision-making for a bike-sharing provider.
+Using Transport for London Santander Cycles data (2019–2021, ~31M journeys),
+the analysis combines behavioural analysis, geospatial insights, and machine
+learning to forecast demand and guide fleet management decisions.
 
 ## Technology Stack
 
@@ -55,6 +60,7 @@ The work combines exploratory data analysis, geospatial analytics, and machine l
 ├── interactive plots/      # Plotly & Folium outputs
 ├── requirements.txt        # Python dependencies
 ├── client recommendations  # A simple stakeholder summary powerpoint
+├── data                    # Publicly available from [TfL](https://cycling.data.tfl.gov.uk/#!usage-stats%2F)
 └── README.md
 ```
 
@@ -119,7 +125,12 @@ Two products for two distinct user types:
 | Analytics | K-means customer segmentation, predictive maintenance, route optimisation |
 | Production | MLOps pipeline, A/B testing framework, monitoring dashboard |
 
----
+## Reproducibility
 
+The dataset is publicly available from TfL.
+Notebooks can be executed independently after installing dependencies.
+Large raw files are excluded from the repository for size reasons.
+
+---
 **Author**: Nitya Devaraj  
 **Dataset**: [Transport for London Cycling Data](https://cycling.data.tfl.gov.uk/) (2019-2021)
