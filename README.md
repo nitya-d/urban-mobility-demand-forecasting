@@ -31,6 +31,8 @@ City-scale demand forecasting and operational analytics using 31M London bike jo
 | Day-to-Day Variation | 11% | Consistent demand |
 | Post-COVID Growth | +5.5% | Expansion timing validated |
 
+![Hourly Usage Pattern](plots/hourly_usage.png)
+
 ## Overview
 This project demonstrates how historical mobility data can support operational and strategic decision-making for a bike-sharing provider.
 Using Transport for London Santander Cycles data (2019–2021, ~31M journeys),
@@ -53,7 +55,7 @@ learning to forecast demand and guide fleet management decisions.
 ├── scrape_data.py          # Data collection from TfL API
 ├── cycling_EDA.ipynb       # Exploratory data analysis & visualisation
 ├── forecast_model.ipynb    # Time series forecasting models
-├── interactive plots/      # Plotly & Folium outputs
+├── plots/                  # Plotly & Folium outputs both live and static
 ├── requirements.txt        # Python dependencies
 ├── client recommendations  # A simple stakeholder summary powerpoint
 ├── data                    # Publicly available from TfL usage stats
@@ -97,7 +99,9 @@ Data was aggregated from 31M journeys into ~26K hourly observations. Time-aware 
 | Random Forest | 205.1 | 0.963 | 298.7 |
 | Gradient Boosting | 208.4 | 0.961 | 306.2 |
 
-**Validation**: No data leakage (`.shift()` for lags) • Time-based split • Feature importance analysis • Visual inspection of predictions vs actuals
+**Validation**: No data leakage (`.shift()` for lags) • Time-based split • Feature importance analysis • Visual inspection of predictions vs actuals.
+
+![Actual vs Predicted](plots/model_comparison.png)
 
 ## Business Recommendations
 
@@ -106,6 +110,8 @@ Combine station imbalance data with demand forecasting:
 - Pre-position bikes at source stations before 7AM rush
 - Deploy collection crews at sink stations overnight (10PM-6AM)
 - Prioritise top 10 imbalanced stations (80% of redistribution need)
+
+![Station Imbalance](plots/station_imbalance.png)
 
 ### 2. Customer-Segmented Pricing
 Two products for two distinct user types:
