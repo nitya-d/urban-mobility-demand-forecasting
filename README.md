@@ -17,6 +17,7 @@ City-scale demand forecasting and operational analytics using 31M London bike jo
   - [Business Recommendations](#business-recommendations)
     - [1. Optimise Bike Redistribution](#1-optimise-bike-redistribution)
     - [2. Customer-Segmented Pricing](#2-customer-segmented-pricing)
+  - [Client Recommendations Deck](#client-recommendations-deck)
   - [Future Enhancements](#future-enhancements)
   - [Reproducibility](#reproducibility)
 
@@ -118,6 +119,17 @@ Two products for two distinct user types:
 - **Commuter Pass**: Flat monthly fee, unlimited 30-min rides (87% qualify)
 - **Leisure Premium**: Higher per-ride pricing for round-trips/park stations
 - **Dynamic Surge**: Peak-hour pricing (6-8PM weekdays)
+
+## Client Recommendations Deck
+A concise presentation is included to communicate findings and
+recommendations to non-technical stakeholders.
+
+**[View Slide Deck](Client%20recommendations.pdf)**
+
+The deck includes:
+- Key usage patterns and customer segments
+- Visual demand forecasts
+- Operational and pricing recommendations
 
 ## Future Enhancements
 
