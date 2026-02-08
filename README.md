@@ -205,7 +205,7 @@ Two products for two distinct user types:
 A concise presentation is included to communicate findings and
 recommendations to non-technical stakeholders.
 
-**[View Slide Deck](Client%20recommendations.pdf)**
+**[View Slide Deck](reports/Client%20recommendations.pdf)**
 
 The deck includes:
 - Key usage patterns and customer segments
