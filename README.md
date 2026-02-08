@@ -8,16 +8,23 @@ City-scale demand forecasting and operational analytics using 31M London bike jo
 - [Urban Mobility Demand Forecasting](#urban-mobility-demand-forecasting)
   - [Table of Contents](#table-of-contents)
   - [Key Findings](#key-findings)
+  - [Demo](#demo)
+    - [Interactive Dashboard](#interactive-dashboard)
+    - [REST API](#rest-api)
   - [Overview](#overview)
   - [Technology Stack](#technology-stack)
   - [Project Structure](#project-structure)
   - [Setup](#setup)
+  - [Interactive Dashboard](#interactive-dashboard-1)
+  - [REST API](#rest-api-1)
+    - [Docker Deployment](#docker-deployment)
   - [Analytical Approach](#analytical-approach)
   - [Demand Forecasting Model](#demand-forecasting-model)
   - [Business Recommendations](#business-recommendations)
     - [1. Optimise Bike Redistribution](#1-optimise-bike-redistribution)
     - [2. Customer-Segmented Pricing](#2-customer-segmented-pricing)
   - [Client Recommendations Deck](#client-recommendations-deck)
+  - [Experimentation Framework](#experimentation-framework)
   - [Future Enhancements](#future-enhancements)
   - [Reproducibility](#reproducibility)
 
@@ -34,6 +41,20 @@ City-scale demand forecasting and operational analytics using 31M London bike jo
 
 ![Hourly Usage Pattern](plots/hourly_usage.png)
 
+## Demo
+
+### Interactive Dashboard
+
+https://github.com/user-attachments/assets/9eece3d9-ad1a-43c8-a452-f70aed9b4e0e
+
+*Streamlit dashboard with demand forecasting, station analysis maps, and A/B testing framework.*
+
+### REST API
+
+![FastAPI Swagger UI](plots/api_swagger.png)
+
+*FastAPI with auto-generated documentation at `/docs`.*
+
 ## Overview
 This project demonstrates how historical mobility data can support operational and strategic decision-making for a bike-sharing provider.
 Using Transport for London Santander Cycles data (2019–2021, ~31M journeys),
@@ -46,21 +67,26 @@ learning to forecast demand and guide fleet management decisions.
 |----------|-------|
 | Core Analysis | Python, pandas, numpy, Jupyter |
 | Machine Learning | scikit-learn, XGBoost |
-| Visualisation | Plotly, Folium |
+| Visualisation | Plotly, Folium, Streamlit |
+| API & Deployment | FastAPI, Docker, uvicorn |
 | Data Collection | Selenium, requests |
 | Data Engineering | Parquet, categorical typing, ThreadPoolExecutor |
 
 ## Project Structure
 
 ```
+├── app.py                  # FastAPI prediction service
+├── dashboard.py            # Streamlit interactive dashboard
+├── train_model.py          # Model training script
 ├── scrape_data.py          # Data collection from TfL API
 ├── cycling_EDA.ipynb       # Exploratory data analysis & visualisation
 ├── forecast_model.ipynb    # Time series forecasting models
-├── plots/                  # Plotly & Folium outputs both live and static
+├── Dockerfile              # Container deployment
 ├── requirements.txt        # Python dependencies
-├── client recommendations  # A simple stakeholder summary powerpoint
-├── data                    # Publicly available from TfL usage stats
-└── README.md
+├── models/                 # Trained model artifacts
+├── plots/                  # Static and interactive visualisations
+├── data/                   # TfL cycling data (gitignored)
+└── reports/Client recommendations.pdf
 ```
 
 ## Setup
@@ -73,6 +99,61 @@ python scrape_data.py          # Downloads ~400MB of data
 Then open `cycling_EDA.ipynb` for analysis, `forecast_model.ipynb` for modeling.
 
 **Requirements**: Python 3.10+, Chrome browser, ~500MB disk space
+
+## Interactive Dashboard
+
+Launch the Streamlit dashboard for stakeholder-friendly exploration:
+
+```bash
+streamlit run dashboard.py
+```
+
+The dashboard provides:
+- **Demand Prediction** — Select any hour, day, and month to get predicted journeys
+- **24-Hour Forecast** — Visualise demand across an entire day with rush hour highlighting
+- **Weekday vs Weekend** — Compare commuter and leisure usage patterns
+- **Station Analysis** — Interactive maps showing imbalance, popularity, and round-trip hotspots
+- **A/B Testing Ideas** — Experiment frameworks for dynamic pricing and operations
+
+## REST API
+
+Start the prediction API for programmatic access:
+
+```bash
+uvicorn app:app --reload
+```
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/` | GET | Health check |
+| `/predict` | POST | Single hour prediction |
+| `/predict/day` | GET | 24-hour forecast for a given day |
+| `/predict/peak-hours` | GET | Typical peak hour patterns |
+| `/model/info` | GET | Model metadata and performance metrics |
+| `/docs` | GET | Interactive Swagger documentation |
+
+**Example Request:**
+```bash
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"hour": 8, "day_of_week": 0, "month": 6, "is_weekend": false}'
+```
+
+**Example Response:**
+```json
+{
+  "predicted_demand": 2145,
+  "confidence": "medium",
+  "input_features": {...}
+}
+```
+
+### Docker Deployment
+
+```bash
+docker build -t bike-demand-api .
+docker run -p 8000:8000 bike-demand-api
+```
 
 ## Analytical Approach
 
@@ -124,20 +205,37 @@ Two products for two distinct user types:
 A concise presentation is included to communicate findings and
 recommendations to non-technical stakeholders.
 
-**[View Slide Deck](Client%20recommendations.pdf)**
+**[View Slide Deck](reports/Client%20recommendations.pdf)**
 
 The deck includes:
 - Key usage patterns and customer segments
 - Visual demand forecasts
 - Operational and pricing recommendations
 
+## Experimentation Framework
+
+The forecasting model enables data-driven experiments for operational optimisation:
+
+| Experiment | Hypothesis | Metrics |
+|------------|------------|---------|
+| **Dynamic Pricing** | Surge pricing during peak hours reduces demand spikes by 15% | Peak-to-average ratio, revenue per journey |
+| **Redistribution Alerts** | Proactive bike repositioning reduces empty stations by 30% | Station availability, user complaints |
+| **Commuter Subscriptions** | Flat monthly pass increases weekday retention by 20% | MAU, journey frequency |
+| **Weekend Promotions** | 10% discount increases weekend utilisation by 25% | Weekend journeys, new user acquisition |
+
+**Implementation approach**: Station-level randomisation into control/treatment groups, 4-6 week experiment duration, significance testing at α=0.05.
+
 ## Future Enhancements
 
-| Category | Enhancement |
-|----------|-------------|
-| Model | Weather API integration, station-level forecasting, real-time REST API |
-| Analytics | K-means customer segmentation, predictive maintenance, route optimisation |
-| Production | MLOps pipeline, A/B testing framework, monitoring dashboard |
+| Category | Enhancement | Status |
+|----------|-------------|--------|
+| **Deployment** | REST API with FastAPI | Complete |
+| **Deployment** | Interactive Streamlit dashboard | Complete |
+| **Deployment** | Docker containerisation | Complete |
+| **MLOps** | Model performance monitoring endpoint | Complete |
+| Model | Weather API integration | Planned |
+| Model | Station-level forecasting | Planned |
+| Analytics | K-means customer segmentation | Planned |
 
 ## Reproducibility
 
